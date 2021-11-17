@@ -5,7 +5,21 @@
   >
     <v-row class="px-4 pt-4 pb-0">
       <v-col cols="3">
-        <v-badge avatar top color="online ? green : grey accent-4" offset-x="19" offset-y="15">
+        <v-badge 
+          avatar 
+          top 
+          :color="
+            status.value === 'online' 
+            ? 'green accent-4'
+            : status.value === 'do-not-disturb' 
+            ? 'red accent-4'
+            : status.value === 'away' 
+            ? 'yellow accent-4'
+            : 'grey accent-4'
+          " 
+          offset-x="19" 
+          offset-y="15"
+        >
           <v-avatar size="64">
             <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"/>
           </v-avatar>
@@ -42,15 +56,15 @@
           <v-icon class="mx-auto">mdi-message</v-icon>
         </v-btn>
         <v-btn class="v-btn-sheet-nav ma-0 pa-0">
-          <span>Music</span>
+          <span>Contacts</span>
           <v-icon class="mx-auto">mdi-contacts</v-icon>
         </v-btn>
         <v-btn class="v-btn-sheet-nav ma-0 pa-0">
-          <span>Book</span>
+          <span>Settings</span>
           <v-icon class="mx-auto">mdi-cog</v-icon>
         </v-btn>
         <v-btn class="v-btn-sheet-nav ma-0 pa-0">
-          <span>Status</span>
+          <span>More</span>
           <v-icon class="mx-auto">mdi-arrow-down</v-icon>
         </v-btn>
       
@@ -74,19 +88,17 @@
   export default {
     name: 'IntroSheet',
     props: {
-      // message: { type: String, required: true }, 
-      // button: { type: Object, required: true },
       closable: { type: Boolean, default: false },
     },
     data: () => ({
       show: true,
-      status: true,
       statuses: [
         {text: "Online", value: "online"},
         {text: "Offline", value: "offline"},
         {text: "Do Not Disturb", value: "do-not-disturb"},
         {text: "Away", value: "away"},
       ],
+      status: {text: "Online", value: "online"},
     }),
     methods: {
       fetch() {
